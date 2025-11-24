@@ -56,7 +56,6 @@ logger.log
 *.ipynb
 
 # Generated files
-investigation_*.pdf
 detective_sketch.png
 
 # Chat logs and notes
