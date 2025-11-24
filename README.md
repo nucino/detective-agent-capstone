@@ -200,29 +200,9 @@ This project is the capstone for a **5-day intensive course** on building AI age
 - **PDF**: ReportLab
 - **Language**: Python 3.13
 
-## 🐛 Troubleshooting
+## included sample screenshots of generated reports as well as screenshots for sample companies
 
-### Investigation Incomplete
-- Check server logs for errors
-- Verify Google API key is valid
-- Check Google Search API quota
-- System will auto-retry up to 3 times
-
-### Connection Errors
-- Ensure `remote_agent.py` is running on port 8001
-- Check firewall settings
-- Verify `DETECTIVE_SERVER_URL` in `.env`
-
-### PDF Generation Issues
-- Install reportlab: `pip install reportlab`
-- Check write permissions in project directory
-- Verify report has sufficient content (>50 chars)
-
-## 📝 License
-
-This is a capstone project for educational purposes.
-
-## 👨‍💻 Author
+## 👨‍💻 Author Nucino (Felipe Rodriguez)
 
 Built as part of the Google ADK 5-Day Intensive Course (December 2025)
 
