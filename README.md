@@ -179,16 +179,6 @@ Capstone_proyect/
 └── detective_sketch.png    # Optional: Detective image for PDFs
 ```
 
-## 🎓 Academic Context
-
-This project is the capstone for a **5-day intensive course** on building AI agents with Google ADK. It demonstrates:
-
-- **Day 1**: From prompts to actions and agent architectures
-- **Day 2**: Agent tools and best practices
-- **Day 3**: Agent sessions and memory management
-- **Day 4**: Agent observability and evaluation
-- **Day 5**: Agent-to-Agent communication and deployment
-
 ## 🛠️ Technical Stack
 
 - **Framework**: Google ADK (Agent Development Kit)
