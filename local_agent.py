@@ -689,8 +689,7 @@ def markdown_to_pdf(report_text: str, output_path: str, detective_sketch_path: s
         elif line.startswith('- ') or line.startswith('* '):
             text = '• ' + line[2:]
             text = remove_emojis(text)
-            #text = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', text)
-            #text = re.sub(r'\*(.*?)\*', r'<i>\1</i>', text)
+          
             if text and text != '• ':  # Only add if has content
                 story.append(Paragraph(text, body_style))
         
