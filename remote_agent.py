@@ -10,7 +10,7 @@ from google.adk.agents import Agent, LlmAgent
 from google.adk.models.google_llm import Gemini
 from google.adk.tools import google_search, agent_tool
 from google.adk.code_executors import BuiltInCodeExecutor
-from google.adk.a2a.utils.agent_to_a2a import to_a2a  # Day 5A pattern!
+from google.adk.a2a.utils.agent_to_a2a import to_a2a  
 from google.genai import types
 
 from google.adk.agents import LlmAgent
