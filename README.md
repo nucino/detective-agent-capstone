@@ -190,7 +190,7 @@ Capstone_proyect/
 - **PDF**: ReportLab
 - **Language**: Python 3.13
 
-## included sample screenshots of generated reports as well as screenshots for sample companies
+## Pleas check sample screenshots of generated reports as well as screenshots for sample companies also in the gallery of the project
 
 ## 👨‍💻 Author Nucino (Felipe Rodriguez)
 
