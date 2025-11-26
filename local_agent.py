@@ -302,18 +302,43 @@ with demo:
     # Inject custom CSS for Ed D. detective theme
     gr.HTML("""
     <style>
+    /* Detective image banner styling */
+    .detective-banner {
+        display: flex !important;
+        align-items: center;
+        justify-content: flex-start !important;
+        gap: 30px;
+        padding: 20px;
+        margin-bottom: 20px;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .detective-image-container {
+        flex-shrink: 0;
+        flex-basis: auto !important;
+        max-width: 250px;
+    }
+    
+    .detective-text-container {
+        flex-grow: 1 !important;
+        flex-basis: 0 !important;
+        text-align: left;
+        min-width: 0;
+    }
+    
     /* Header styling - film noir detective theme */
         .header-container {
         text-align: center;
-        background: transparent !important;  /* Changed from gradient */
+        background: transparent !important;  
         padding: 30px 20px;
         margin-bottom: 20px;
-        border: none !important;             /* Removed border */
-        box-shadow: none !important;         /* Removed shadow */
+        border: none !important;            
+        box-shadow: none !important;        
     }
 
     .header-container h1 {
-        color: #2d3436 !important;           /* Changed from white to dark */
+        color: #2d3436 !important;         
         margin: 0;
         font-size: 2.8em !important;
         font-family: 'Courier New', monospace !important;
@@ -351,21 +376,58 @@ with demo:
         background-color: #f5f5f5;
         color: #2d3436;
     }
+    
     </style>
     <script>
         document.title = "Detective Agent - Ed D.";
     </script>
     """)
     
-    # Header
-    with gr.Column(elem_classes=["header-container"]):
-        gr.Markdown(
-            """
-            # 🕵️ DETECTIVE AGENT - Ed D.
-            ### *"I've been investigating companies since before the dot-com bubble..."*
-            **40 Years of Financial Investigation Experience**  
-            """
-        )
+    # Header with detective image banner
+    from pathlib import Path
+    import time
+    SCRIPT_DIR = Path(__file__).parent
+    detective_image_path = SCRIPT_DIR / "detective_sketch.png"
+    
+    # Load detective image as base64
+    if detective_image_path.exists():
+        import base64
+        with open(detective_image_path, "rb") as img_file:
+            img_data = base64.b64encode(img_file.read()).decode()
+       
+    else:
+        img_data = ""
+       
+    # Full HTML header - bypasses Gradio layout issues completely
+    gr.HTML(f"""
+        <div style="display: flex; align-items: flex-start; gap: 30px; padding: 20px; margin-bottom: 20px; width: 100%; background: transparent; border-radius: 10px;">
+            <div style="flex-shrink: 0;">
+                <img src="data:image/png;base64,{img_data}" 
+                     alt="Detective Ed D." 
+                     style="width: 200px; height: auto; border-radius: 8px; object-fit: contain;" />
+            </div>
+            <div style="flex-grow: 1; padding-top: 10px;">
+                <h1 style="margin: 0 0 10px 0; font-family: 'Courier New', monospace; font-size: 2.86em;">
+                    DETECTIVE AGENT - Ed D.
+                </h1>
+                <h3 style="margin: 0 0 15px 0; font-family: Georgia, serif; font-style: italic; font-weight: normal; font-size: 1.56em;">
+                    "I've been investigating companies since before the dot-com bubble..."
+                </h3>
+                <p style="margin: 0 0 15px 0; font-weight: bold; font-style: italic; font-size: 1.3em;">
+                    40 Years of Financial Investigation Experience.
+                </p>
+                <p style="margin: 0 0 15px 0; font-weight: bold; font-style: italic; font-size: 1.3em;">
+                    For educational purposes only, not financial advice.
+                </p>
+                <div style="margin: 15px 0 0 0; padding: 10px 15px; font-style: italic; font-size: 1.3em;">
+                    "Don't make me repeat myself! I've seen every trick in the book, kid. 
+                    Now let's dig into the numbers and see what we're really dealing with here."
+                </div>
+            </div>
+        </div>
+    """)
+    
+    gr.Markdown("---")
     
     # Instructions
     gr.Markdown(
@@ -474,9 +536,12 @@ with demo:
                 "detective_sketch.png"
             )
             if not os.path.exists(sketch_path):
+                print(f"[WARN] Detective sketch not found at: {sketch_path}")
                 sketch_path = None
+            else:
+                print(f"[INFO] Using detective sketch: {sketch_path}")
             
-            # Generate PDF
+            # Generate PDF with detective image
             markdown_to_pdf(report, pdf_path, sketch_path)
             
             print(f"[DEBUG] PDF generated: {pdf_path}")
@@ -594,14 +659,31 @@ def markdown_to_pdf(report_text: str, output_path: str, detective_sketch_path: s
         leading=16
     )
     
-    # Add detective sketch if provided
+    # Add detective sketch if provided - CENTERED with better sizing
     if detective_sketch_path and os.path.exists(detective_sketch_path):
         try:
-            img = RLImage(detective_sketch_path, width=2*inch, height=2*inch)
+            # Load and resize image proportionally
+            from PIL import Image as PILImage
+            pil_img = PILImage.open(detective_sketch_path)
+            
+            # Calculate aspect ratio
+            aspect = pil_img.width / pil_img.height
+            
+            # Set target dimensions (fits nicely in header)
+            target_width = 2.5 * inch
+            target_height = target_width / aspect
+            
+            # Create ReportLab image
+            img = RLImage(detective_sketch_path, width=target_width, height=target_height)
+            
+            # Center the image
+            img.hAlign = 'CENTER'
             story.append(img)
             story.append(Spacer(1, 0.3*inch))
-        except:
-            pass  # Skip if image can't be loaded
+            
+        except Exception as e:
+            print(f"[WARN] Could not load detective image: {e}")
+            pass  # Continue without image
     
     # Add title
     story.append(Paragraph("FINANCIAL INVESTIGATION REPORT", title_style))

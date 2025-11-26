@@ -1,4 +1,4 @@
-# 🕵️ Detective Agent Ed D. - Financial Investigation System
+# 🕵️ Detective Agent Ed D. - Financial Investigation System (For educational purposes only, Not finantial advice!)
 
 *"I've been investigating companies since before the dot-com bubble..." - Ed D.*
 
@@ -12,9 +12,9 @@ Detective Agent Ed D. is a grumpy but thorough financial detective with 40 years
 - **A2A (Agent-to-Agent) protocol** for remote agent communication
 - **Google ADK** framework with Gemini 2.5-Flash model
 - **Web interface** built with Gradio
-- **Session persistence** with SQLite database
+- **Session persistence** with SQLite database with event compaction
 - **Automatic retry logic** with exponential backoff
-- **PDF report generation** with professional styling
+- **PDF report generation** with goog looking style or so I think!
 
 ## 🏗️ Architecture
 
