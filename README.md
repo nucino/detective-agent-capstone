@@ -1,4 +1,6 @@
-# 🕵️ Detective Agent Ed D. - Financial Investigation System (For educational purposes only, Not finantial advice!)
+# Detective Agent Ed D. - Financial Investigation System (For educational purposes only, Not finantial advice!)
+
+![Detective Ed D.](detective_sketch_card.png)
 
 *"I've been investigating companies since before the dot-com bubble..." - Ed D.*
 
