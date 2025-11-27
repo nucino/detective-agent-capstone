@@ -15,10 +15,8 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image as RLImage, PageBreak
-from reportlab.lib.enums import TA_CENTER, TA_LEFT
+from reportlab.lib.enums import TA_CENTER
 from reportlab.lib.colors import HexColor
-
-from io import BytesIO
 import re
 
 # Load environment
@@ -296,93 +294,9 @@ def investigate_company(company_query: str, progress=gr.Progress()) -> tuple[str
     return report, status
 
 # Build Gradio interface - Ed D. detective theme
-demo = gr.Blocks()
+demo = gr.Blocks(title="Detective Agent - Ed D.")
 
-with demo:
-    # Inject custom CSS for Ed D. detective theme
-    gr.HTML("""
-    <style>
-    /* Detective image banner styling */
-    .detective-banner {
-        display: flex !important;
-        align-items: center;
-        justify-content: flex-start !important;
-        gap: 30px;
-        padding: 20px;
-        margin-bottom: 20px;
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-    
-    .detective-image-container {
-        flex-shrink: 0;
-        flex-basis: auto !important;
-        max-width: 250px;
-    }
-    
-    .detective-text-container {
-        flex-grow: 1 !important;
-        flex-basis: 0 !important;
-        text-align: left;
-        min-width: 0;
-    }
-    
-    /* Header styling - film noir detective theme */
-        .header-container {
-        text-align: center;
-        background: transparent !important;  
-        padding: 30px 20px;
-        margin-bottom: 20px;
-        border: none !important;            
-        box-shadow: none !important;        
-    }
-
-    .header-container h1 {
-        color: #2d3436 !important;         
-        margin: 0;
-        font-size: 2.8em !important;
-        font-family: 'Courier New', monospace !important;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);  /* Lighter shadow */
-    }
-
-    .header-container p {
-        color: #636e72 !important;           /* Changed from light to gray */
-        margin: 10px 0 0 0;
-        font-style: italic;
-        font-family: 'Georgia', serif !important;
-    }
-    
-    /* Button styling - detective theme */
-    button.primary {
-        background: linear-gradient(135deg, #2d3436 0%, #636e72 100%) !important;
-        border: none !important;
-        font-family: 'Courier New', monospace !important;
-        color: white !important;
-    }
-
-    /* Footer styling */
-    .footer-container {
-        text-align: center;
-        margin-top: 30px;
-        padding: 20px;
-        background: #2d3436;
-        border-radius: 8px;
-        color: #dfe6e9;
-        font-family: 'Courier New', monospace;
-    }
-    
-    /* Monochrome theme simulation */
-    body {
-        background-color: #f5f5f5;
-        color: #2d3436;
-    }
-    
-    </style>
-    <script>
-        document.title = "Detective Agent - Ed D.";
-    </script>
-    """)
-    
+with demo: 
     # Header with detective image banner
     from pathlib import Path
     import time
@@ -398,7 +312,7 @@ with demo:
     else:
         img_data = ""
        
-    # Full HTML header - bypasses Gradio layout issues completely
+    # Full HTML header - bypasses Gradio gr.image
     gr.HTML(f"""
         <div style="display: flex; align-items: flex-start; gap: 30px; padding: 20px; margin-bottom: 20px; width: 100%; background: transparent; border-radius: 10px;">
             <div style="flex-shrink: 0;">
@@ -406,11 +320,11 @@ with demo:
                      alt="Detective Ed D." 
                      style="width: 200px; height: auto; border-radius: 8px; object-fit: contain;" />
             </div>
-            <div style="flex-grow: 1; padding-top: 10px;">
-                <h1 style="margin: 0 0 10px 0; font-family: 'Courier New', monospace; font-size: 2.86em;">
+            <div style="flex-grow: 1; padding-top: 0px;">
+                <h1 style="margin: 0 0 10px 0; font-family: 'Courier New', monospace; font-size: 2.86em; text-align: center;">
                     DETECTIVE AGENT - Ed D.
                 </h1>
-                <h3 style="margin: 0 0 15px 0; font-family: Georgia, serif; font-style: italic; font-weight: normal; font-size: 1.56em;">
+                <h3 style="margin: 60px 0 15px 0; font-family: Georgia, serif; font-style: italic; font-weight: normal; font-size: 1.56em;">
                     "I've been investigating companies since before the dot-com bubble..."
                 </h3>
                 <p style="margin: 0 0 15px 0; font-weight: bold; font-style: italic; font-size: 1.3em;">
@@ -420,7 +334,7 @@ with demo:
                     For educational purposes only, not financial advice.
                 </p>
                 <div style="margin: 15px 0 0 0; padding: 10px 15px; font-style: italic; font-size: 1.3em;">
-                    "Don't make me repeat myself! I've seen every trick in the book, kid. 
+                    "I've seen every trick in the book, kid. 
                     Now let's dig into the numbers and see what we're really dealing with here."
                 </div>
             </div>
@@ -538,8 +452,6 @@ with demo:
             if not os.path.exists(sketch_path):
                 print(f"[WARN] Detective sketch not found at: {sketch_path}")
                 sketch_path = None
-            else:
-                print(f"[INFO] Using detective sketch: {sketch_path}")
             
             # Generate PDF with detective image
             markdown_to_pdf(report, pdf_path, sketch_path)
@@ -818,5 +730,6 @@ if __name__ == "__main__":
         server_name="0.0.0.0",
         server_port=7860,
         share=False,
-        show_error=True
+        show_error=True,
+        footer_links=[()],
     )
