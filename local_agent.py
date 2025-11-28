@@ -299,7 +299,6 @@ demo = gr.Blocks(title="Detective Agent - Ed D.")
 with demo: 
     # Header with detective image banner
     from pathlib import Path
-    import time
     SCRIPT_DIR = Path(__file__).parent
     detective_image_path = SCRIPT_DIR / "detective_sketch.png"
     
